@@ -4,12 +4,13 @@
         y1 = 0.492,
         y2 = -0.133;
     let key = "asdvgbjmjhmhjmgh";
-    let plainText;
+    let plainText = "";
     let keyResults = [];
     let y = [0, 0];
     $: console.log(c1);
     let c1Prime, c2Prime;
-    let keyError = false;
+    let keyError = false,
+        plainTextError = false;
     let y1Prime = 0.242,
         y2Prime = -0.955;
     let cipherText = "";
@@ -29,7 +30,11 @@
             keyError = true;
             return;
         }
-
+        if (plainText.length < 1) {
+            plainTextError = true;
+            return;
+        }
+        plainTextError = false;
         keyError = false;
 
         y[0] = y1;
@@ -149,6 +154,11 @@
                         type="text"
                         class="w-full mt-2 bg-gray-700 rounded-md px-2 py-1"
                     />
+                    {#if plainTextError}
+                        <h3 class="text-red-500">
+                            Plain Text must not be empty
+                        </h3>
+                    {/if}
                 </div>
                 <button
                     on:click={encrypt}
