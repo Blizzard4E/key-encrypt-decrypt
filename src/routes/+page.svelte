@@ -24,6 +24,7 @@
 
     function encrypt() {
         keyResults = [];
+        cipherText = "";
         if (key.length < 16) {
             keyError = true;
             return;
@@ -59,12 +60,14 @@
     }
 </script>
 
-<div class="w-full h-[100vh] bg-gray-900">
-    <main class="container m-auto grid grid-cols-3 place-items-center h-full">
-        <div class="grid gap-4">
+<div class="w-full min-h-[100vh] bg-gray-900">
+    <main
+        class="p-1 md:p-4 container m-auto grid xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 md:grid-cols-2 place-items-center h-full gap-4"
+    >
+        <div class="grid gap-4 w-full">
             <form
                 action=""
-                class="bg-gray-800 text-white rounded-lg p-4 w-[500px] grid gap-4"
+                class="bg-gray-800 text-white rounded-lg p-4 w-full grid gap-4"
             >
                 <div class="flex gap-4 items-center">
                     <h3 class="font-bold">C1:</h3>
@@ -123,7 +126,7 @@
             </form>
             <form
                 action=""
-                class="bg-gray-800 text-white rounded-lg p-4 w-[500px] grid gap-4"
+                class="bg-gray-800 text-white rounded-lg p-4 w-full grid gap-4"
             >
                 <div>
                     <h3 class="font-bold">Key Input (16 Characters):</h3>
@@ -155,7 +158,7 @@
                 </button>
             </form>
         </div>
-        <section>
+        <section class="w-full p-1">
             <h1 class="font-bold text-lg text-white">Key System</h1>
             {#each Array(keyResults.length) as _, i}
                 {#if i == 14}
@@ -174,9 +177,12 @@
                 {/if}
             {/each}
         </section>
-        <section>
+        <section class="w-full p-1">
             <h1 class="font-bold text-lg text-white">Main Algorithm</h1>
-            <h2 class="text-white font-bold">{cipherText}</h2>
+            <h2 class="text-white">
+                <span class="font-bold">CipherText</span>
+                : {cipherText}
+            </h2>
         </section>
     </main>
 </div>
