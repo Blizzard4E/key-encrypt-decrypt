@@ -3,7 +3,7 @@
         c2 = 0.234,
         y1 = 0.492,
         y2 = -0.133;
-    let key = "asdvgbjmjhmhjmgh";
+    let key = "abcdefghijklmnop";
     let plainText = "";
     let keyResults = [];
     let y = [0, 0];
@@ -43,8 +43,8 @@
             //console.log(y[0] + ", " + y[1]);
             let y_n = yEquation(key.charCodeAt(i), c1, c2, y[0], y[1]);
             keyResults = [...keyResults, y_n];
-            y[0] = y[1];
-            y[1] = y_n;
+            y[1] = y[0];
+            y[0] = y_n;
         }
         c1Prime = keyResults[14];
         c2Prime = keyResults[15];
@@ -55,8 +55,8 @@
             //console.log(y[0] + ", " + y[1]);
             let y_n = plainText.charCodeAt(i) + c1Prime * y[0] + c2Prime * y[1];
 
-            y[0] = y[1];
-            y[1] = y_n;
+            y[1] = y[0];
+            y[0] = y_n;
             let boundedCharCode = y_n % 128; // Restrict to ASCII range 0-127
 
             let encodedChar = String.fromCharCode(boundedCharCode);
