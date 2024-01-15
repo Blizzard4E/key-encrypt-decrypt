@@ -114,7 +114,7 @@
             decryptValues = [...decryptValues, x_n];
 
             y[1] = y[0];
-            y[0] = x_n;
+            y[0] = cipherText.charCodeAt(i);
 
             let encodedChar = String.fromCharCode(x_n);
             decryptedText += encodedChar;
