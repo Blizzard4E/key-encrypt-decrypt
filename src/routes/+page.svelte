@@ -43,7 +43,7 @@
                     bind:value={phone.key}
                     maxlength="16"
                     type="text"
-                    class="w-[212px] bg-gray-700 rounded-tr-md rounded-br-md px-4 py-2 focus:outline-none text-xl text-gray-300"
+                    class="w-48 bg-gray-700 rounded-tr-md rounded-br-md px-4 py-2 focus:outline-none text-xl text-gray-300"
                 />
             </div>
             <div class="flex justify-center mt-4">
