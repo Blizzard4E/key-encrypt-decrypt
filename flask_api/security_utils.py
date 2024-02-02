@@ -1,6 +1,6 @@
 import math
-
-
+import cv2 
+ 
 c1_value = -0.3
 c2_value = 0.3
 y1_value = 0.492
@@ -60,8 +60,8 @@ def encrypt_func(key, original_values):
         temp_encrypted_value = encrypt_value(normalized_original_values[0], y1_value, y2_value, c1Prime, c2Prime)
         temp_denormalized_encrypted_value = normalized(denormalized(temp_encrypted_value)) # NORMALIZED_CEPTION
 
-        print("Encrypted: " + str(temp_denormalized_encrypted_value))
-        print("Original: " + str(normalized_original_values[0])) 
+        # print("Encrypted: " + str(temp_denormalized_encrypted_value))
+        # print("Original: " + str(normalized_original_values[0])) 
 
         encrypted_values.append(temp_denormalized_encrypted_value)
         break
@@ -71,8 +71,8 @@ def encrypt_func(key, original_values):
         temp_encrypted_value = encrypt_value(normalized_original_values[1], encrypted_values[0], y1_value, c1Prime, c2Prime)
         temp_denormalized_encrypted_value = normalized(denormalized(temp_encrypted_value)) # NORMALIZED_CEPTION
 
-        print("Encrypted: " + str(temp_denormalized_encrypted_value)) 
-        print("Original: " + str(normalized_original_values[1])) 
+        # print("Encrypted: " + str(temp_denormalized_encrypted_value)) 
+        # print("Original: " + str(normalized_original_values[1])) 
 
         encrypted_values.append(temp_denormalized_encrypted_value) 
         break
@@ -83,8 +83,8 @@ def encrypt_func(key, original_values):
             temp_encrypted_value = encrypt_value(normalized_original_values[i], encrypted_values[i - 1], encrypted_values[i - 2], c1Prime, c2Prime)
             temp_denormalized_encrypted_value = normalized(denormalized(temp_encrypted_value)) # NORMALIZED_CEPTION
 
-            print("Encrypted: " + str(temp_denormalized_encrypted_value)) 
-            print("Original: " + str(normalized_original_values[i])) 
+            # print("Encrypted: " + str(temp_denormalized_encrypted_value)) 
+            # print("Original: " + str(normalized_original_values[i])) 
 
             encrypted_values.append(temp_denormalized_encrypted_value)
             break
@@ -158,6 +158,57 @@ def decrypt_text(key, encrypted_text):
 
     print("\nDecrypted Text: " + decrypted_text)
     print("==== End Text Decryption Process ====")
-    return decrypted_text 
+    return decrypted_text  
 
-# decrypt_text(c1_value, c2_value, y1_value, y2_value, encrypt_text(c1_value, c2_value, y1_value, y2_value, "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."))
+import numpy as np
+from PIL import Image
+
+def encrypt_image(key, original_image):
+    print("==== Start Image Encryption Process ====") 
+    # Check if the image is loaded successfully
+    if original_image is None:
+        print("Error: Unable to load the image.")
+        return None
+    else:
+        # Reshape the image array to a one-dimensional array
+        flattened_image = original_image.ravel() # -1 means automatic calculation of the size
+
+        # Print the flattened array of pixel values
+        print("Flattened pixel values array:\n", flattened_image) 
+        print("Original Length: " + str(len(flattened_image)))
+
+        print("Encrypt: ")
+        encrypted_image = encrypt_func(key, flattened_image)
+        encrypted_image = np.reshape(encrypted_image, original_image.shape)
+        # Print the flattened array of pixel values
+        print("Encrypted pixel values array:\n", encrypted_image) 
+        print("Encrypted Length: " + str(len(encrypted_image))) 
+        return encrypted_image
+ 
+def decrypt_image(key, encrypted_image):   
+    print("==== Start Image Encryption Process ====") 
+    # Check if the image is loaded successfully
+    if encrypted_image is None:
+        print("Error: Unable to load the image.")
+        return None
+    else:
+        # Reshape the image array to a one-dimensional array
+        flattened__encrypted_image = encrypted_image.ravel() # -1 means automatic calculation of the size 
+
+        print("Decrypt: ") 
+        
+        decrypted_image = decrypt_func(key, flattened__encrypted_image)
+        decrypted_image = np.reshape(decrypted_image, encrypted_image.shape)
+        # Print the flattened array of pixel values
+        print("Decrypted pixel values array:\n", decrypted_image) 
+        print("Decrypted Length: " + str(len(decrypted_image))) 
+        return decrypted_image
+
+# Example Usage
+key = "adabefgbfjklmnop"
+original_image_path = "original_image.png"
+encrypted_image_path = "encrypted_image.png"
+decrypted_image_path = "decrypted_image.png"
+
+# encrypt_image(key, cv2.imread(original_image_path))
+# decrypt_image(key, cv2.imread(encrypted_image_path))

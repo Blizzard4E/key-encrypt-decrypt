@@ -1,7 +1,7 @@
 <script>
     import Phone from "../components/Phone.svelte";
     let phone = {
-        key: "abcdefghijklmnop",
+        key: "asdbgffdmsestuiu",
         c1Prime: "",
         c2Prime: "",
         encryptMode: false,
