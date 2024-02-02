@@ -1,6 +1,5 @@
 <script>
     import { onMount } from "svelte";
-
     let time = new Date();
     let batteryPercent = 100;
     let isCharging = false;
@@ -53,7 +52,13 @@
 </script>
 
 <div class="py-2 px-5 flex justify-between items-center">
-    <h1 class="px-2 text-lg">{hours}:{minutes}</h1>
+    <h1 class="px-2 text-lg">
+        {hours}:{#if minutes < 10}
+            0{minutes}
+        {:else}
+            {minutes}
+        {/if}
+    </h1>
 
     <div class="flex gap-2 items-center">
         <img
