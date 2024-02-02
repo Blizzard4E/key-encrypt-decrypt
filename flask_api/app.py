@@ -1,11 +1,11 @@
 import base64
-from io import BytesIO
-import io
+from io import BytesIO 
+import os
+from dotenv import load_dotenv
 import ssl
 import cv2
 from flask import Flask, jsonify, request
-from flask_cors import CORS
-from PIL import Image
+from flask_cors import CORS 
 import numpy as np
 import cloudinary
 from cloudinary.uploader import upload
@@ -13,7 +13,8 @@ import urllib.request
 
 
 from security_utils import decrypt_image, decrypt_text, encrypt_image, encrypt_text
-
+# Load environment variables from the .env file
+load_dotenv()
 app = Flask(__name__)
 CORS(app, origins="*")
 
@@ -43,11 +44,11 @@ def encrypt_text_route():
     # Return the encrypted text
     return jsonify(encrypted_text=encrypted_text, decrypted_text=decrypted_text) 
 
-# Configure Cloudinary
+# Configure Cloudinary using environment variables
 cloudinary.config(
-    cloud_name="duzvevuup",
-    api_key="489686583597755",
-    api_secret="LUMVCiy19zaZX6-kU1mBHKDV7nE"
+    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.getenv("CLOUDINARY_API_KEY"),
+    api_secret=os.getenv("CLOUDINARY_API_SECRET")
 )
 
 @app.route('/image', methods=['POST'])
@@ -64,7 +65,7 @@ def encrypt_decrypt_original_image():
         return jsonify(error='No selected file'), 400
 
     # Upload the original image to Cloudinary
-    result = upload(file)
+    result = upload(file, folder="Encrypt Decrypt")
 
     # Get the URL of the uploaded image
     original_image_url = result['secure_url']
@@ -81,7 +82,7 @@ def encrypt_decrypt_original_image():
     encrypted_image_base64 = base64.b64encode(buffer).decode('utf-8')
 
     # Upload the encrypted image to Cloudinary
-    encrypted_result = upload(BytesIO(base64.b64decode(encrypted_image_base64)))
+    encrypted_result = upload(BytesIO(base64.b64decode(encrypted_image_base64)),folder="Encrypt Decrypt")
 
     # Get the URL of the uploaded encrypted image
     encrypted_image_url = encrypted_result['secure_url'] 
@@ -97,7 +98,7 @@ def encrypt_decrypt_original_image():
     decrypted_image_base64 = base64.b64encode(buffer).decode('utf-8')
 
     # Upload the decrypted image to Cloudinary
-    decrypted_result = upload(BytesIO(base64.b64decode(decrypted_image_base64)))
+    decrypted_result = upload(BytesIO(base64.b64decode(decrypted_image_base64)), folder="Encrypt Decrypt")
 
     # Get the URL of the uploaded decrypted image
     decrypted_image_url = decrypted_result['secure_url']
