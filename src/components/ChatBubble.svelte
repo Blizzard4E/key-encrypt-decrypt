@@ -42,7 +42,11 @@
             class:rounded-br-lg={hasNewMessage && !isLastMessage}
             class:rounded-br-none={isLastMessage}
         >
-            {phone.chats[index].decrypted}
+            {#if phone.encryptMode}
+                {phone.chats[index].encrypted}
+            {:else}
+                {phone.chats[index].decrypted}
+            {/if}
         </div>
     {:else}
         <div
@@ -51,7 +55,11 @@
             class:rounded-bl-lg={hasNewMessage && !isLastMessage}
             class:rounded-bl-none={isLastMessage}
         >
-            {phone.chats[index].decrypted}
+            {#if phone.encryptMode}
+                {phone.chats[index].encrypted}
+            {:else}
+                {phone.chats[index].decrypted}
+            {/if}
         </div>
     {/if}
 </div>

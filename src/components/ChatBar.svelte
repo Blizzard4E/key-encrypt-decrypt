@@ -5,9 +5,11 @@
     export let phone, owner, otherOwner;
 
     let inputText;
+    let isSending = false;
 
     function addTextChat() {
-        if (inputText == "") return;
+        if (inputText == "" || isSending) return;
+        isSending = true;
         fetch(`${PUBLIC_FLASK_API}/text`, {
             method: "POST",
             headers: {
@@ -30,6 +32,7 @@
                     },
                 ];
                 inputText = "";
+                isSending = false;
             });
 
         let chatListOwner = document.getElementById(owner);
@@ -41,7 +44,11 @@
     }
 </script>
 
-<ul class="flex items-center gap-2 px-4 pt-2 border-t border-t-gray-600">
+<ul
+    class="flex items-center gap-2 px-4 pt-2 border-t border-t-gray-600"
+    class:brightness-50={isSending}
+    class:pointer-events-none={isSending}
+>
     <li>
         <img src="/image.png" class="w-6" alt="" />
     </li>

@@ -24,7 +24,7 @@
                 <img src="/key.png" class="w-10" alt="" />
             </div>
             <div
-                class="flex mt-4 transition-all"
+                class="flex justify-center mt-4 transition-all"
                 class:opacity-50={phone.encryptMode}
             >
                 <button
@@ -60,6 +60,9 @@
                         Key On
                     {/if}
                 </button>
+            </div>
+            <div class="flex justify-center mt-4 text-gray-300">
+                <p>Click to show encrypted/decrypted versions</p>
             </div>
         </div>
         <div class="p-4">
