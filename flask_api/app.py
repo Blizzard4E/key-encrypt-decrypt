@@ -4,7 +4,7 @@ from flask_cors import CORS
 from security_utils import decrypt_text, encrypt_text
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins="*")
 
 @app.route('/')
 def hello_world():
