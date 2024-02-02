@@ -1,4 +1,5 @@
 <script>
+    import { PUBLIC_FLASK_API } from "$env/static/public";
     import { onMount } from "svelte";
 
     export let phone, owner, otherOwner;
@@ -7,7 +8,7 @@
 
     function addTextChat() {
         if (inputText == "") return;
-        fetch("http://localhost:5000/text", {
+        fetch(`${PUBLIC_FLASK_API}/text`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json", // Set Content-Type to application/json
